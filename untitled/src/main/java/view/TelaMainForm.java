@@ -2,15 +2,20 @@ package view;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 
 public abstract class TelaMainForm extends JFrame {
 
     // Tamanho jLabel
     private static final int TAMANHO_JLABEL_w = 70;
     private static final int TAMANHO_JLABEL_h = 30;
+    private static final int TAMANHO_MARGEM = 30;
 
     // Paineis
     protected JPanel pnlForm;
+    // Paines do Formulario
+    protected JPanel pnlMessage;
+    protected JPanel pnlNumeros;
     protected JPanel pnlRodape;
     // Paineis para Rodape
     protected JPanel pnlButtons;
@@ -22,17 +27,19 @@ public abstract class TelaMainForm extends JFrame {
     protected JTextArea txtMessage;
     // Lista de numeros
     protected JLabel lblNumeros;
-    protected JTextArea txtNumeros;
+    protected JTextField txtNumeros;
     // Buttons
     protected JButton btnEnviar;
     protected JButton btnLimpar;
     protected JButton btnFechar;
+    protected JButton btnFile;
     // Assinatura
     protected JLabel ass;
 
     // construtor
     public TelaMainForm () {
         this.inicializador();
+        this.eventos();
     }
 
     private void inicializador() {
@@ -58,49 +65,62 @@ public abstract class TelaMainForm extends JFrame {
     public JPanel getPnlForm() {
         if (pnlForm == null) {
             pnlForm = new JPanel();
-            pnlForm.setLayout(new BoxLayout(pnlForm, BoxLayout.Y_AXIS));
+            pnlForm.setLayout(new BorderLayout());
             pnlForm.setBackground(Color.BLACK);
-
-
-            // Criando Campos
-            // Messagem
-            lblMessage = new JLabel("Messagem ");
-            lblMessage.setMaximumSize(new Dimension(TAMANHO_JLABEL_w,TAMANHO_JLABEL_h));
-            lblMessage.setForeground(Color.WHITE);
-            txtMessage = new JTextArea();
-            txtMessage.setMaximumSize(new Dimension(1100,100));
-            txtMessage.setLineWrap(true);
-
-
-
-            /*txtMessage.setBackground(Color.GRAY);*/
-
-            // Numeros
-            lblNumeros = new JLabel("Telefones");
-            lblNumeros.setMaximumSize(new Dimension(TAMANHO_JLABEL_w,TAMANHO_JLABEL_h));
-            lblNumeros.setForeground(Color.WHITE);
-
-            txtNumeros = new JTextArea();
-            txtNumeros.setMaximumSize(new Dimension(1100,200));
-            txtNumeros.setLineWrap(true);
-
-            /*txtNumeros.setBackground(Color.GRAY);*/
-
-            pnlForm.add(lblMessage);
             pnlForm.add(Box.createRigidArea(new Dimension(0,5)));
-            pnlForm.add(txtMessage);
-            pnlForm.add(lblNumeros);
-            pnlForm.add(txtNumeros);
-            pnlForm.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
-
-
-
-
+            pnlForm.setBorder(BorderFactory.createEmptyBorder(TAMANHO_MARGEM,TAMANHO_MARGEM,TAMANHO_MARGEM,TAMANHO_MARGEM));
+            // Add componentes formulario
+            pnlForm.add(getPnlMessage(), BorderLayout.CENTER);
+            pnlForm.add(getPnlNumeros(), BorderLayout.PAGE_END);
 
 
         }
 
         return pnlForm;
+    }
+
+    // Gerando Painel Mensagem
+    public JPanel getPnlMessage() {
+        if(pnlMessage == null) {
+            pnlMessage = new JPanel();
+            pnlMessage.setBackground(Color.BLACK);
+            pnlMessage.setLayout(new BoxLayout(pnlMessage, BoxLayout.Y_AXIS));
+
+            lblMessage = new JLabel("Messagem ");
+            lblMessage.setMaximumSize(new Dimension(TAMANHO_JLABEL_w,TAMANHO_JLABEL_h));
+            lblMessage.setForeground(Color.WHITE);
+            txtMessage = new JTextArea();
+            txtMessage.setMaximumSize(new Dimension(1100,250));
+            txtMessage.setLineWrap(true);
+
+            pnlMessage.add(lblMessage);
+            pnlMessage.add(txtMessage);
+
+        }
+
+        return pnlMessage;
+    }
+    // Gerando Painel numeros
+    public JPanel getPnlNumeros() {
+        if(pnlNumeros == null) {
+            pnlNumeros = new JPanel();
+            pnlNumeros.setBackground(Color.BLACK);
+            pnlNumeros.setLayout(new FlowLayout());
+
+            lblNumeros = new JLabel("Telefones");
+            lblNumeros.setMaximumSize(new Dimension(TAMANHO_JLABEL_w,TAMANHO_JLABEL_h));
+            lblNumeros.setForeground(Color.WHITE);
+            txtNumeros = new JTextField(30);
+
+            btnFile = new JButton("Carregar .txt");
+
+
+            pnlNumeros.add(lblNumeros);
+            pnlNumeros.add(txtNumeros);
+            pnlNumeros.add(btnFile);
+        }
+
+        return pnlNumeros;
     }
 
     // Gerando Rodape
@@ -147,5 +167,18 @@ public abstract class TelaMainForm extends JFrame {
             pnlAssinaruta.add(ass);
         }
         return pnlAssinaruta;
+    }
+
+    // Funções dos Buttons
+    protected abstract void btnFileClick(ActionEvent event);
+    protected abstract void btnEnviarClick(ActionEvent event);
+    protected abstract void btnLimparClick(ActionEvent event);
+    protected abstract void btnFecharClick(ActionEvent event);
+    private void eventos() {
+
+        btnFile.addActionListener(this::btnFileClick);
+        btnEnviar.addActionListener(this::btnEnviarClick);
+        btnLimpar.addActionListener(this::btnLimparClick);
+        btnFechar.addActionListener(this::btnFecharClick);
     }
 }
