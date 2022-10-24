@@ -37,12 +37,14 @@ public class ControllerFile {
                 }
             } catch (IOException e) {
                 telefone.add("erro");
-                JOptionPane.showMessageDialog(null, "Arquivo não encontrado", "Error", 0);
+                JOptionPane.showMessageDialog(null, "Arquivo não " +
+                        "encontrado", "Error", 0);
             }
 
         } catch (FileNotFoundException e) {
             telefone.add("erro");
-            JOptionPane.showMessageDialog(null, "Arquivo não encontrado", "Error", 0);
+            JOptionPane.showMessageDialog(null, "Arquivo não " +
+                    "encontrado", "Error", 0);
         }
 
         if(telefone.contains("Erro")){

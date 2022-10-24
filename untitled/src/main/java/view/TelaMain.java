@@ -1,5 +1,6 @@
 package view;
 
+import controller.Bot.ControllerBot;
 import controller.ControllerFile;
 
 import javax.swing.*;
@@ -8,7 +9,8 @@ import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 
 public class TelaMain extends TelaMainForm{
-    ArrayList<String> telefone;
+
+    ArrayList<String> telefones;
     String message;
     String diretorio;
     @Override
@@ -34,9 +36,11 @@ public class TelaMain extends TelaMainForm{
         String diretorio = txtNumeros.getText();
         ControllerFile controllerFile = new ControllerFile(diretorio);
         message = txtMessage.getText();
-        telefone = controllerFile.leitura();
+        telefones = controllerFile.leitura();
         System.out.println(message);
-        System.out.println(telefone);
+        System.out.println(telefones);
+        ControllerBot controllerBot = new ControllerBot(telefones, message);
+        controllerBot.inciarBot();
 
     }
 

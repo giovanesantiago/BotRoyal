@@ -53,7 +53,6 @@ public abstract class TelaMainForm extends JFrame {
         this.setResizable(false);
         // Distribuindo componentes com BorderLayout
         this.getContentPane().setLayout(new BorderLayout());
-        this.setBackground(Color.BLACK);
 
         // Adcionando Formulario
         this.getContentPane().add(getPnlForm(), BorderLayout.CENTER);
@@ -66,7 +65,6 @@ public abstract class TelaMainForm extends JFrame {
         if (pnlForm == null) {
             pnlForm = new JPanel();
             pnlForm.setLayout(new BorderLayout());
-            pnlForm.setBackground(Color.BLACK);
             pnlForm.add(Box.createRigidArea(new Dimension(0,5)));
             pnlForm.setBorder(BorderFactory.createEmptyBorder(TAMANHO_MARGEM,TAMANHO_MARGEM,TAMANHO_MARGEM,TAMANHO_MARGEM));
             // Add componentes formulario
@@ -83,15 +81,17 @@ public abstract class TelaMainForm extends JFrame {
     public JPanel getPnlMessage() {
         if(pnlMessage == null) {
             pnlMessage = new JPanel();
-            pnlMessage.setBackground(Color.BLACK);
+
             pnlMessage.setLayout(new BoxLayout(pnlMessage, BoxLayout.Y_AXIS));
 
             lblMessage = new JLabel("Messagem ");
             lblMessage.setMaximumSize(new Dimension(TAMANHO_JLABEL_w,TAMANHO_JLABEL_h));
-            lblMessage.setForeground(Color.WHITE);
+
             txtMessage = new JTextArea();
             txtMessage.setMaximumSize(new Dimension(1100,250));
             txtMessage.setLineWrap(true);
+            txtMessage.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+
 
             pnlMessage.add(lblMessage);
             pnlMessage.add(txtMessage);
@@ -104,14 +104,14 @@ public abstract class TelaMainForm extends JFrame {
     public JPanel getPnlNumeros() {
         if(pnlNumeros == null) {
             pnlNumeros = new JPanel();
-            pnlNumeros.setBackground(Color.BLACK);
+
             pnlNumeros.setLayout(new FlowLayout());
 
             lblNumeros = new JLabel("Telefones");
             lblNumeros.setMaximumSize(new Dimension(TAMANHO_JLABEL_w,TAMANHO_JLABEL_h));
-            lblNumeros.setForeground(Color.WHITE);
-            txtNumeros = new JTextField(30);
 
+            txtNumeros = new JTextField(30);
+            txtNumeros.setBorder(BorderFactory.createLineBorder(Color.BLACK));
             btnFile = new JButton("Carregar .txt");
 
 
@@ -127,7 +127,7 @@ public abstract class TelaMainForm extends JFrame {
     public JPanel getPnlRodape() {
         if(pnlRodape == null) {
             pnlRodape = new JPanel(new BorderLayout());
-            pnlRodape.setBackground(Color.BLACK);
+
             pnlRodape.add(getPnlButtons(), BorderLayout.CENTER);
             pnlRodape.add(getPnlAssinaruta(), BorderLayout.PAGE_END);
 
@@ -139,7 +139,7 @@ public abstract class TelaMainForm extends JFrame {
     public JPanel getPnlButtons() {
         if(pnlButtons == null) {
             pnlButtons = new JPanel();
-            pnlButtons.setBackground(Color.BLACK);
+
             pnlButtons.setLayout(new FlowLayout());
 
             // Criando Buttons
@@ -160,7 +160,6 @@ public abstract class TelaMainForm extends JFrame {
     public JPanel getPnlAssinaruta() {
         if(pnlAssinaruta == null) {
             pnlAssinaruta = new JPanel();
-            pnlAssinaruta.setBackground(Color.BLACK);
 
             ass = new JLabel("Diretos reservados a Giovane Santiago");
 
