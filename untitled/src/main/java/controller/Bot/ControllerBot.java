@@ -1,5 +1,6 @@
 package controller.Bot;
 
+import controller.File.ControllerFile;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -9,8 +10,12 @@ import java.util.ArrayList;
 
 public class ControllerBot {
 
+
+    ControllerFile controllerFile;
     WebDriver driver;
     ArrayList<String> telefones;
+
+    ArrayList<String> telefonesErrados = new ArrayList<>();;
     String message;
 
     public ControllerBot(ArrayList<String> telefones, String message) {
@@ -26,6 +31,20 @@ public class ControllerBot {
         JOptionPane.showMessageDialog(null, "1 - Faça leitura do qrcode \n" +
                 "2 - Espera o carregamento completo do web whatsapp \n" +
                 "3 - Aperte ok ");
+        enviarMensagem();
+
+        if(!telefonesErrados.isEmpty()){
+            System.out.println(telefonesErrados);
+            // Montar processo para usuario corrigir e reiniciar o bot
+        }else{
+            driver.quit();
+        }
+
+
+
+
+    }
+    public void enviarMensagem() {
         for (String telefone: telefones) {
             try {
                 Thread.sleep(1000);
@@ -47,15 +66,20 @@ public class ControllerBot {
                 driver.findElement(By.xpath("//*[@id=\"main\"]/footer/div[1]/div/span" +
                         "[2]/div/div[2]/div[2]/button")).click();
                 Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                JOptionPane.showMessageDialog(null, "Error ao " +
-                        "iniciar bot", "Error", 0);
+
+            } catch (Exception e) {
+                if (e.getMessage().contains("no such element")){
+                    telefonesErrados.add(telefone);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Error ao " +
+                            "iniciar bot erro : " +
+                            e.getMessage(), "Error", 0);
+                }
+
+
             }
 
         }
-
-        driver.quit();
-
     }
 }
 

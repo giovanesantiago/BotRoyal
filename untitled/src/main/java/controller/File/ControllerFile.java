@@ -1,4 +1,4 @@
-package controller;
+package controller.File;
 
 import javax.swing.*;
 import java.io.BufferedReader;
@@ -54,6 +54,8 @@ public class ControllerFile {
         }
 
     }
+
+    public void Corrigir() {}
 }
 
 

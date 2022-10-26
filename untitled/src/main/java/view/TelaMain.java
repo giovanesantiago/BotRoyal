@@ -1,7 +1,7 @@
 package view;
 
 import controller.Bot.ControllerBot;
-import controller.ControllerFile;
+import controller.File.ControllerFile;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -39,9 +39,10 @@ public class TelaMain extends TelaMainForm{
         telefones = controllerFile.leitura();
         System.out.println(message);
         System.out.println(telefones);
+        this.setVisible(false);
         ControllerBot controllerBot = new ControllerBot(telefones, message);
         controllerBot.inciarBot();
-
+        this.setVisible(true);
     }
 
     @Override
