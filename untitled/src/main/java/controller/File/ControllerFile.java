@@ -1,10 +1,7 @@
 package controller.File;
 
 import javax.swing.*;
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 
 public class ControllerFile {
@@ -55,7 +52,19 @@ public class ControllerFile {
 
     }
 
-    public void Corrigir() {}
+    public void Corrigir(ArrayList<String> telefones) {
+
+
+        try {
+            FileWriter arq = new FileWriter(diretorio);
+            PrintWriter gravarArq = new PrintWriter(arq);
+            gravarArq.println(telefones);
+            gravarArq.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
 }
 
 

@@ -34,7 +34,11 @@ public class ControllerBot {
         enviarMensagem();
 
         if(!telefonesErrados.isEmpty()){
+            String diretorioNumerosErrados = "src/main/java/controller/File/telefonesErrados.txt";
             System.out.println(telefonesErrados);
+            controllerFile = new ControllerFile(diretorioNumerosErrados);
+            controllerFile.Corrigir(telefonesErrados);
+
             // Montar processo para usuario corrigir e reiniciar o bot
         }else{
             driver.quit();
@@ -60,7 +64,7 @@ public class ControllerBot {
                     driver.findElement(By.xpath("//*[@id=\"main\"]/footer/div[1]/div/span[2]/div/" +
                             "div[2]/div[1]/div/div/p/span")).sendKeys(arrayTxt[i]);
 
-                    Thread.sleep(25);
+                    Thread.sleep(10);
                 }
                 Thread.sleep(1000);
                 driver.findElement(By.xpath("//*[@id=\"main\"]/footer/div[1]/div/span" +
