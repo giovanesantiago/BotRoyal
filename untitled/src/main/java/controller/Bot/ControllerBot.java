@@ -24,7 +24,7 @@ public class ControllerBot {
     }
 
     public void inciarBot() {
-        System.setProperty("webdriver.chrome.driver", "driver/chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", "C:\\rootDriver\\chromedriver.exe");
         driver = new ChromeDriver();
         // Abrindo web whats
         driver.get("https://web.whatsapp.com/");
@@ -34,7 +34,7 @@ public class ControllerBot {
         enviarMensagem();
 
         if(!telefonesErrados.isEmpty()){
-            String diretorioNumerosErrados = "src/main/java/controller/File/telefonesErrados.txt";
+            String diretorioNumerosErrados = "C:\\rootDriver\\telefonesErrados.txt";
             System.out.println(telefonesErrados);
             controllerFile = new ControllerFile(diretorioNumerosErrados);
             controllerFile.Corrigir(telefonesErrados);
