@@ -15,6 +15,7 @@ Robo para whatsapp  !
 
         1. Java
         2. Selenium 
+        3. Swing GUI
 
 - ### Requisitos
 
