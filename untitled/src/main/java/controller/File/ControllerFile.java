@@ -33,22 +33,20 @@ public class ControllerFile {
                     linha = lerArquivo.readLine();
                 }
             } catch (IOException e) {
-                telefone.add("erro");
                 JOptionPane.showMessageDialog(null, "Arquivo não " +
                         "encontrado", "Error", 0);
+                return null;
             }
 
         } catch (FileNotFoundException e) {
-            telefone.add("erro");
+
             JOptionPane.showMessageDialog(null, "Arquivo não " +
                     "encontrado", "Error", 0);
-        }
-
-        if(telefone.contains("Erro")){
             return null;
-        } else {
-            return telefone;
         }
+        
+        return telefone;
+
 
     }
 

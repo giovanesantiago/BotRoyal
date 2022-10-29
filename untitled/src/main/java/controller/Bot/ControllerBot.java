@@ -3,10 +3,13 @@ package controller.Bot;
 import controller.File.ControllerFile;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import view.TelaMain;
 
 import javax.swing.*;
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 public class ControllerBot {
 
@@ -50,10 +53,15 @@ public class ControllerBot {
     }
     public void enviarMensagem() {
         for (String telefone: telefones) {
+
             try {
                 Thread.sleep(1000);
                 driver.get("https://web.whatsapp.com/send/?phone=55" + telefone);
-                Thread.sleep(15000);
+                Boolean existe = false;
+                while (!existe) {
+                    existe = testeDeCarregamento();
+                }
+                Thread.sleep(500);
                 driver.findElement(By.xpath("//*[@id=\"main\"]/footer/div[1]/div/span[2]/div/div[2]" +
                         "/div[1]/div/div[1]/p")).click();
                 Thread.sleep(700);
@@ -72,18 +80,27 @@ public class ControllerBot {
                 Thread.sleep(1000);
 
             } catch (Exception e) {
-                if (e.getMessage().contains("no such element")){
+                if (e.getMessage().contains("no such element")) {
                     telefonesErrados.add(telefone);
                 } else {
                     JOptionPane.showMessageDialog(null, "Error ao " +
-                            "iniciar bot erro : " +
-                            e.getMessage(), "Error", 0);
+                            "iniciar bot erro : ", "Error", 0);
+                    break;
                 }
-
-
             }
-
         }
+        driver.quit();
+    }
+
+    public Boolean testeDeCarregamento () {
+        driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
+        Boolean existe = driver.findElements(By.xpath("//*[@id=\"main\"]/footer/div[1]/div/span[2]/div/div[2]" +
+                "/div[1]/div/div[1]/p")).size() > 0;
+        if (existe == false) {
+            existe = driver.findElements(By.xpath("//*[@id=\"app\"]/div/span[2]/div/span/div/div/div/div" +
+                    "/div/div[2]/div/div")).size() > 0;
+        }
+        return existe;
     }
 }
 

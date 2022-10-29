@@ -13,6 +13,8 @@ public class TelaMain extends TelaMainForm{
     ArrayList<String> telefones;
     String message;
     String diretorio;
+
+
     @Override
     protected void btnFileClick(ActionEvent event) {
         JFileChooser ch = new JFileChooser();
@@ -37,13 +39,23 @@ public class TelaMain extends TelaMainForm{
         ControllerFile controllerFile = new ControllerFile(diretorio);
         message = txtMessage.getText();
         telefones = controllerFile.leitura();
-        System.out.println(message);
-        System.out.println(telefones);
-        this.setVisible(false);
-        ControllerBot controllerBot = new ControllerBot(telefones, message);
-        controllerBot.inciarBot();
-        this.setVisible(true);
+        if(telefones != null){
+            System.out.println(telefones);
+            if(!message.equals("")) {
+                ControllerBot controllerBot = new ControllerBot(telefones, message);
+                controllerBot.inciarBot();
+                System.out.println(message);
+            }else {
+                JOptionPane.showMessageDialog(null, "Messagem não " +
+                        "encontrado", "Error", 0);
+            }
+        }
+
+
+        
     }
+
+
 
     @Override
     protected void btnLimparClick(ActionEvent event) {
